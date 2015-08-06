@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <!--<ul id="books-list" data-template="book-item-template">
+        <li class="book-item">
+            <a href="/#books/1">
+                <strong>JavaScript: The Good Parts</strong>
+            </a>
+        </li>
+        <li class="book-item">
+            <a href="/#books/2">
+                <strong>Secrets of the JavaScript Ninja</strong>
+            </a>
+        </li>
+        <li class="book-item">
+            <a href="/#books/3">
+                <strong>Core HTML5 Canvas</strong>
+            </a>
+        </li>
+        <li class="book-item">
+            <a href="/#books/4">
+                <strong>JavaScript Patterns</strong>
+            </a>
+        </li>
+    </ul>-->
+
+    <ul id="books-list" data-template="book-item-template"></ul>
+
+    <script id="book-item-template" type="text/x-handlebars-template">
+        <li class="book-item">
+            <a href="/#books/{{id}}">
+                <strong>{{title}}</strong>
+            </a>
+        </li>
+    </script>
+
+    <script src="jquery-2.1.4.js"></script>
+    <script src="Scripts/handlebars.min.js"></script>
+
+    <script>
+        $.fn.listview = function (data) {
+            var $this = $(this);
+            var id = '#' + $this.attr('data-template');
+            var handlebarsTemplate = $(id).html();
+            var compiledTemplate = Handlebars.compile(handlebarsTemplate);
+            var $documentFragment = $(document.createDocumentFragment());
+
+            data.forEach(function (item) {
+                $documentFragment.append(compiledTemplate(item));
+            });
+
+            $documentFragment.appendTo($this);
+
+            return $this;
+        };
+
+        var handlebars = Handlebars || handlebars;
+
+        var books = [
+                {
+                    id: 1,
+                    title: 'JavaScript: The Good Parts'
+                },
+                {
+                    id: 2,
+                    title: 'Secrets of the JavaScript Ninja'
+                },
+                {
+                    id: 3,
+                    title: 'Core HTML5 Canvas'
+                },
+                {
+                    id: 4,
+                    title: 'JavaScript Patterns'
+                }
+        ];
+
+        $('#books-list').listview(books);
+    </script>
+</body>
+</html>
